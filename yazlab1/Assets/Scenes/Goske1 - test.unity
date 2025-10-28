@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 131242066}
   - component: {fileID: 131242065}
   - component: {fileID: 131242064}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: deneme
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,8 +167,8 @@ MonoBehaviour:
   autoRepaint: 0
   terrainListeners: []
   bounds:
-    m_Center: {x: 500, y: 300, z: 500}
-    m_Extent: {x: 500, y: 300, z: 500}
+    m_Center: {x: 0, y: 300, z: 0}
+    m_Extent: {x: 200, y: 300, z: 200}
   filterShader: {fileID: 4800000, guid: 0f44df78e3d64d9cb2616cac3d84cb77, type: 3}
 --- !u!154 &131242065
 TerrainCollider:
@@ -239,9 +239,9 @@ Transform:
   m_GameObject: {fileID: 131242063}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -200, y: 0, z: -200}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -332,11 +332,11 @@ Transform:
   m_GameObject: {fileID: 144659111}
   serializedVersion: 2
   m_LocalRotation: {x: 0.22697943, y: -0, z: -0, w: 0.9738996}
-  m_LocalPosition: {x: 2.91, y: 6.42, z: -10}
+  m_LocalPosition: {x: 1.8060001, y: 4.0299997, z: -12.33768}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1368744157}
   m_LocalEulerAnglesHint: {x: 26.239, y: 0, z: 0}
 --- !u!114 &144659115
 MonoBehaviour:
@@ -382,6 +382,37 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!1 &369719465
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 369719466}
+  m_Layer: 0
+  m_Name: GroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &369719466
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 369719465}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1368744157}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &636757235
 GameObject:
   m_ObjectHideFlags: 0
@@ -516,6 +547,7 @@ GameObject:
   - component: {fileID: 1368744155}
   - component: {fileID: 1368744154}
   - component: {fileID: 1368744152}
+  - component: {fileID: 1368744158}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -535,7 +567,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f95da6405f40cde479e8a3ffb5955668, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2
+  moveSpeed: 10
+  jumpForce: 8.5
+  groundCheckDistance: 1
 --- !u!136 &1368744154
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -621,12 +655,41 @@ Transform:
   m_GameObject: {fileID: 1368744151}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.104, y: 2.39, z: 2.33768}
+  m_LocalPosition: {x: 1.104, y: 40.5, z: 2.33768}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 144659114}
+  - {fileID: 369719466}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &1368744158
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1368744151}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &2057988657
 GameObject:
   m_ObjectHideFlags: 0
@@ -739,7 +802,6 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 144659114}
   - {fileID: 636757237}
   - {fileID: 2057988661}
   - {fileID: 1368744157}
