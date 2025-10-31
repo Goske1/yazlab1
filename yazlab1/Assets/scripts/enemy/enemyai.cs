@@ -93,6 +93,7 @@ public class EnemyAiTutorial : MonoBehaviour
 
     private void AttackPlayer()
     {
+        Debug.Log("Enemy attacking player!");
         //Make sure enemy doesn't move
         agent.SetDestination(transform.position);
 
@@ -101,7 +102,9 @@ public class EnemyAiTutorial : MonoBehaviour
         if (!alreadyAttacked)
         {
             ///Attack code here
-            Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+            Vector3 spawnPos = transform.position + transform.forward * 1.5f + transform.up * 1f;
+            Rigidbody rb = Instantiate(projectile, spawnPos, transform.rotation).GetComponent<Rigidbody>();
+
             rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
             rb.AddForce(transform.up * 8f, ForceMode.Impulse);
             ///End of attack code
