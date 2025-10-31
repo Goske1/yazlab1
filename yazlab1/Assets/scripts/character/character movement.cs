@@ -7,12 +7,13 @@ public class SimpleTransformMovement : MonoBehaviour
     [Header("Movement Settings")]
     [SerializeField] public float sprintMultiplier = 2f;
     [SerializeField] public float moveSpeed = 6f;
-    
+    [SerializeField] public float rotationSpeed = 15f;
+
     [Header("Jump Settings")]
-    [SerializeField] public bool canJump = true;    
+    [SerializeField] public bool canJump = true;
     [SerializeField] public int jumpcounter = 0;
     [SerializeField] public float mass = 3f;
-    [SerializeField] public int jumpForce = 30;
+    [SerializeField] public int jumpForce = 70;
     [SerializeField] public int groundCheckDistance = 1;
 
     [Header("Dash Settings")]
@@ -27,6 +28,9 @@ public class SimpleTransformMovement : MonoBehaviour
     [Header("Physics Settings")]
     [SerializeField] public float gravityMultiplier = 2.5f; // Hem çıkışta hem inişte uygulanacak ek gravity çarpanı
 
+    [Header("References")]
+    [SerializeField] public Transform cameraTransform;
+
     public Vector3 moveDirection;
     public Rigidbody playerRb;
 
@@ -40,11 +44,21 @@ public class SimpleTransformMovement : MonoBehaviour
         playerRb.mass = mass;
 
         Physics.gravity = new Vector3(0, -9.81f, 0);
+
+        if (cameraTransform == null)
+        {
+            cameraTransform = Camera.main.transform;
+            if (cameraTransform == null)
+            {
+                 Debug.LogError("SimpleTransformMovement: Ana Kamera (Main Camera) bulunamadı. 'MainCamera' tag'ini kontrol edin veya Inspector'dan manuel olarak atayın.");
+            }
+        }
     }
 
     public void Update()
     {
         HandleMovementInput();
+        HandleRotation();
         HandleJumpInput();
         HandleDashInput(); // Dash inputu ekledik
     }
@@ -57,18 +71,40 @@ public class SimpleTransformMovement : MonoBehaviour
 
     public void HandleMovementInput()
     {
+        if (cameraTransform == null) return;
+
+        Vector3 camForward = cameraTransform.forward;
+        Vector3 camRight = cameraTransform.right;
+        camForward.y = 0;
+        camRight.y = 0;
+        camForward.Normalize();
+        camRight.Normalize();
+
         moveDirection = Vector3.zero;
 
-        if (Input.GetKey(KeyCode.W)) moveDirection += Vector3.forward;
-        if (Input.GetKey(KeyCode.S)) moveDirection += Vector3.back;
-        if (Input.GetKey(KeyCode.A)) moveDirection += Vector3.left;
-        if (Input.GetKey(KeyCode.D)) moveDirection += Vector3.right;
+        if (Input.GetKey(KeyCode.W)) moveDirection += camForward;
+        if (Input.GetKey(KeyCode.S)) moveDirection -= camForward;
+        if (Input.GetKey(KeyCode.A)) moveDirection -= camRight;
+        if (Input.GetKey(KeyCode.D)) moveDirection += camRight;
 
         moveDirection.Normalize();
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
             moveDirection *= sprintMultiplier;
+        }
+    }
+
+    public void HandleRotation()
+    {
+        if (isDashing) return;
+
+        Vector3 horizontalMoveDirection = new Vector3(moveDirection.x, 0, moveDirection.z);
+
+        if (horizontalMoveDirection != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(horizontalMoveDirection);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
         }
     }
 
@@ -88,6 +124,7 @@ public class SimpleTransformMovement : MonoBehaviour
     public void Jump()
     {
         if (!canJump) return;
+        playerRb.linearVelocity = new Vector3(playerRb.linearVelocity.x, 0f, playerRb.linearVelocity.z);
         playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         jumpcounter++;
         if (jumpcounter == 1)
@@ -132,7 +169,7 @@ public class SimpleTransformMovement : MonoBehaviour
         lastDashTime = Time.time;
 
         // Dash yönü mevcut hareket yönü
-        dashDirection = moveDirection;
+        dashDirection = moveDirection.normalized;
         if (dashDirection == Vector3.zero)
             dashDirection = transform.forward; // input yoksa baktığı yön
 
