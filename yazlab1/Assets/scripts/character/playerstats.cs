@@ -45,22 +45,6 @@ public class playerstats : MonoBehaviour
     {
         Debug.Log("Player Died!");
     }
-    private void OnTriggerEnter(Collider other)
-    {
-        // Merminin tag'ını "Projectile" olarak ayarladığını varsayıyoruz
-        if (other.CompareTag("Projectile"))
-        {
-            // Mermi scriptinden damage değerini al
-            Projectile projectile = other.GetComponent<Projectile>();
-
-            if (projectile != null)
-            {
-                TakeDamage(projectile.damage);
-            }
-
-            // Mermiyi yok et (isteğe bağlı)
-            Destroy(other.gameObject);
-        }
-    }
+    
     
 }
