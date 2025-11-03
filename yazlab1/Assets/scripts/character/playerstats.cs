@@ -19,10 +19,6 @@ public class playerstats : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            TakeDamage(10);
-        }
         if (currentHealth <= 0)
         {
             Die();

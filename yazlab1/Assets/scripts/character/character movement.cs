@@ -29,6 +29,8 @@ public class SimpleTransformMovement : MonoBehaviour
 
     public Vector3 moveDirection;
     public Rigidbody playerRb;
+    [Header("animator")]
+    public Animator animator;
 
     public void Start()
     {
@@ -42,11 +44,27 @@ public class SimpleTransformMovement : MonoBehaviour
         Physics.gravity = new Vector3(0, -9.81f, 0);
     }
 
+    [Obsolete]
     public void Update()
     {
         HandleMovementInput();
         HandleJumpInput();
         HandleDashInput(); // Dash inputu ekledik
+        if (Input.GetButtonDown("Jump"))
+        {
+            animator.SetTrigger("Jump");
+        }
+    if (!IsGrounded() && playerRb.velocity.y < 0)
+    {
+        animator.SetBool("isFalling", true);
+    }
+    else
+    {
+        animator.SetBool("isFalling", false);
+    }
+
+
+    
     }
 
     public void FixedUpdate()
