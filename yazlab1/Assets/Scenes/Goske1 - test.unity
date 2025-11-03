@@ -207,11 +207,11 @@ Transform:
   m_GameObject: {fileID: 144659111}
   serializedVersion: 2
   m_LocalRotation: {x: 0.22697943, y: -0, z: -0, w: 0.9738996}
-  m_LocalPosition: {x: 1.8060001, y: 4.0299997, z: -12.33768}
+  m_LocalPosition: {x: 1.8060001, y: 4.0299997, z: -12.337679}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1368744157}
+  m_Father: {fileID: 798931018}
   m_LocalEulerAnglesHint: {x: 26.239, y: 0, z: 0}
 --- !u!114 &144659115
 MonoBehaviour:
@@ -502,7 +502,7 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
---- !u!1 &703255395
+--- !u!1 &798931017
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -510,46 +510,47 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 703255397}
-  - component: {fileID: 703255396}
-  m_Layer: 0
-  m_Name: spawner (1)
+  - component: {fileID: 798931018}
+  - component: {fileID: 798931019}
+  m_Layer: 3
+  m_Name: camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &703255396
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 703255395}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 539dbbd566f55c24d951fd37bab9c65e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  enemyPrefab: {fileID: 3050831743323940511}
-  spawnPoints:
-  - {fileID: 0}
-  spawnInterval: 5
---- !u!4 &703255397
+--- !u!4 &798931018
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 703255395}
+  m_GameObject: {fileID: 798931017}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15, y: 0, z: 15}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
+  m_Children:
+  - {fileID: 144659114}
+  m_Father: {fileID: 1368744157}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &798931019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 798931017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6afbddb20c9558045b37cea8031e9009, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TPS_CameraController
+  target: {fileID: 1368744157}
+  sensitivity: 3
+  minYAngle: -20
+  maxYAngle: 60
 --- !u!1 &937711221
 GameObject:
   m_ObjectHideFlags: 0
@@ -894,10 +895,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
   enemyPrefab: {fileID: 3050831743323940511}
-  spawnPoints:
-  - {fileID: 1322024168}
-  - {fileID: 703255397}
+  totalWaves: 5
+  enemiesPerWave: 4
   spawnInterval: 5
+  size: {x: 20, y: 0, z: 20}
+  minDistanceFromPlayer: 5
+  maxDistanceFromSpawner: 15
+  player: {fileID: 1368744157}
 --- !u!4 &1322024168
 Transform:
   m_ObjectHideFlags: 0
@@ -907,7 +911,7 @@ Transform:
   m_GameObject: {fileID: 1322024166}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -947,6 +951,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprintMultiplier: 2
   moveSpeed: 10
+  rotationSpeed: 15
   canJump: 1
   jumpcounter: 0
   mass: 3
@@ -956,6 +961,7 @@ MonoBehaviour:
   dashDuration: 0.25
   dashCooldown: 1
   gravityMultiplier: 2.5
+  cameraTransform: {fileID: 0}
   moveDirection: {x: 0, y: 0, z: 0}
   playerRb: {fileID: 0}
   animator: {fileID: 8433757728682748082}
@@ -995,9 +1001,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 144659114}
   - {fileID: 369719466}
   - {fileID: 2588044955958833864}
+  - {fileID: 798931018}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &1368744158
@@ -5678,4 +5684,3 @@ SceneRoots:
   - {fileID: 1091708832}
   - {fileID: 735273307810065529}
   - {fileID: 1322024168}
-  - {fileID: 703255397}
