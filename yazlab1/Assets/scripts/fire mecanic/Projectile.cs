@@ -14,6 +14,7 @@ public class Projectile : MonoBehaviour
     {
         Debug.Log("Projectile touched: " + other.name);
 
+        // Oyuncuya hasar
         if (other.CompareTag("Player"))
         {
             playerstats player = other.GetComponent<playerstats>();
@@ -25,9 +26,23 @@ public class Projectile : MonoBehaviour
 
             Destroy(gameObject);
         }
-        else if (!other.CompareTag("Enemy"))
+
+        // Düşmana hasar
+        else if (other.CompareTag("Enemy"))
         {
-            // Düşmana çarpmadıysa, duvara vs çarptığında da yok olsun
+            EnemyStats enemy = other.GetComponent<EnemyStats>();
+            if (enemy != null)
+            {
+                enemy.TakeDamage(damage);
+                Debug.Log("Enemy took damage!");
+            }
+
+            Destroy(gameObject);
+        }
+
+        // Duvarda vs çarptığında da yok olsun
+        else
+        {
             Destroy(gameObject);
         }
     }
