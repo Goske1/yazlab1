@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class EnemyStats : MonoBehaviour
 {
-    public int health = 100;
+    public int enemyhealth = 100;
 
     public void TakeDamage(int damage)
     {
-        health -= damage;
-        Debug.Log(gameObject.name + " took " + damage + " damage! Remaining health: " + health);
+        enemyhealth -= damage;
+        Debug.Log(gameObject.name + " took " + damage + " damage! Remaining health: " + enemyhealth);
 
-        if (health <= 0)
+        if (enemyhealth <= 0)
         {
             Die();
         }

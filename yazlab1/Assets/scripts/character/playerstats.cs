@@ -27,7 +27,7 @@ public class playerstats : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
-        healthBar.SetHealth(currentHealth);
+        healthBar.SetMaxHealth(currentHealth);
         if (currentHealth <= 0)
         {
             Die();
