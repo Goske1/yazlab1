@@ -30,6 +30,8 @@ public class playerstats : MonoBehaviour
             xpBar.SetMaxXP(xpToNextLevel);
             xpBar.SetXP(currentXP);
         }
+        if (xpBar != null)
+        xpBar.SetLevel(level);
     }
 
     void Update()
@@ -87,9 +89,11 @@ public class playerstats : MonoBehaviour
         }
         if (levelUpSound != null)
         levelUpSound.Play();
-        
+
         if (levelUpUI != null)
-        levelUpUI.ShowLevelUp();
+            levelUpUI.ShowLevelUp();
+        if (xpBar != null)
+            xpBar.SetLevel(level);
 
         // Görsel efekt veya ses burada çağrılacak (3. adım)
     }
