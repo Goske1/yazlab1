@@ -22,9 +22,12 @@ public class EnemySpawner : MonoBehaviour
     {
         for (int wave = 0; wave < totalWaves; wave++)
         {
+            Debug.Log($"Wave {wave + 1}/{totalWaves} başladı! {enemiesPerWave} düşman spawn ediliyor...");
             SpawnEnemies(enemiesPerWave);
+            Debug.Log($"Wave {wave + 1} tamamlandı. Sonraki wave için {spawnInterval} saniye bekleniyor...");
             yield return new WaitForSeconds(spawnInterval);
         }
+        Debug.Log("Tüm wave'ler tamamlandı!");
     }
 
     void SpawnEnemies(int enemyCount)
