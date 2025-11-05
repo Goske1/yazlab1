@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    public int damage = 20;
+    public int damage = 200;
     public float lifetime = 5f;
 
     void Start()
@@ -10,10 +10,11 @@ public class Projectile : MonoBehaviour
         Destroy(gameObject, lifetime);
     }
 
-    // --- ESKİ OnTRiggerEnter YERİNE BU FONKSİYONU KULLAN ---
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Projectile collided with: " + collision.gameObject.name);
+        Debug.Log("Projectile collided with: " + collision.gameObject.name +
+                  " | Tag: " + collision.gameObject.tag +
+                  " | IsTrigger: " + collision.collider.isTrigger);
 
         // Oyuncuya hasar
         if (collision.gameObject.CompareTag("Player"))
@@ -24,25 +25,20 @@ public class Projectile : MonoBehaviour
                 player.TakeDamage(damage);
                 Debug.Log("Player took damage!");
             }
-            Destroy(gameObject);
         }
 
         // Düşmana hasar
         else if (collision.gameObject.CompareTag("Enemy"))
         {
-            EnemyStats enemy = collision.gameObject.GetComponent<EnemyStats>();
+            EnemyStats enemy = collision.gameObject.GetComponentInParent<EnemyStats>();
             if (enemy != null)
             {
                 enemy.TakeDamage(damage);
                 Debug.Log("Enemy took damage!");
             }
-            Destroy(gameObject);
         }
 
         // Duvarda vs çarptığında da yok olsun
-        else
-        {
-            Destroy(gameObject);
-        }
+        Destroy(gameObject);
     }
 }
