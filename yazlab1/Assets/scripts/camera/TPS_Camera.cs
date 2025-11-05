@@ -6,8 +6,8 @@ public class TPS_CameraController : MonoBehaviour
     public float sensitivity = 3.0f; // Fare hassasiyeti
 
     // Dikey eksende kameranın ne kadar dönebileceğini kısıtlayalım (ters dönmesin)
-    public float minYAngle = -20f;
-    public float maxYAngle = 60f;
+    public float minYAngle = -89.9f; // Yukarı bakış limiti (mouse Y ters olduğu için)
+    public float maxYAngle = 89.9f;
 
     private float currentX = 0.0f;
     private float currentY = 0.0f;

@@ -10,33 +10,32 @@ public class Projectile : MonoBehaviour
         Destroy(gameObject, lifetime);
     }
 
-    private void OnTriggerEnter(Collider other)
+    // --- ESKİ OnTRiggerEnter YERİNE BU FONKSİYONU KULLAN ---
+    private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Projectile touched: " + other.name);
+        Debug.Log("Projectile collided with: " + collision.gameObject.name);
 
         // Oyuncuya hasar
-        if (other.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
-            playerstats player = other.GetComponent<playerstats>();
+            playerstats player = collision.gameObject.GetComponent<playerstats>();
             if (player != null)
             {
                 player.TakeDamage(damage);
                 Debug.Log("Player took damage!");
             }
-
             Destroy(gameObject);
         }
 
         // Düşmana hasar
-        else if (other.CompareTag("Enemy"))
+        else if (collision.gameObject.CompareTag("Enemy"))
         {
-            EnemyStats enemy = other.GetComponent<EnemyStats>();
+            EnemyStats enemy = collision.gameObject.GetComponent<EnemyStats>();
             if (enemy != null)
             {
                 enemy.TakeDamage(damage);
                 Debug.Log("Enemy took damage!");
             }
-
             Destroy(gameObject);
         }
 

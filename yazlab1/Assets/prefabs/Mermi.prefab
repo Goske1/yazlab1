@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7300941823056112567}
   - component: {fileID: 7627416040105212828}
   - component: {fileID: 8939373089977111699}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Mermi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
