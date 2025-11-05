@@ -2239,7 +2239,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 6fe96b7947299ec4ab609c4160832f1d, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &4963587753540824251
 Transform:
@@ -3489,7 +3489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8906345d8aa88b742a15af528796e948, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAiTutorial
-  player: {fileID: 0}
+  player: {fileID: 1804723382}
   animator: {fileID: 0}
   playerHealth: {fileID: 0}
   detectionRadius: 15
@@ -3499,6 +3499,12 @@ MonoBehaviour:
   patrolIdleTime: 3
   rotationSpeed: 7
   attackDuration: 1
+  viewAngle: 90
+  obstacleLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  lostPatrolRadius: 8
+  lostDetectionRadius: 30
 --- !u!4 &9035573212224578051
 Transform:
   m_ObjectHideFlags: 0
