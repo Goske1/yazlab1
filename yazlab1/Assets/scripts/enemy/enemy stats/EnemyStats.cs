@@ -2,14 +2,35 @@ using UnityEngine;
 
 public class EnemyStats : MonoBehaviour
 {
-    public int health = 100;
+    public int enemyhealth = 100;
+    public int level = 1;
+    public int baseXP = 50;
+    private playerstats player;
+
+    void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<playerstats>();
+
+        // --- Güvenli seviye aralığı: player level ±1 ---
+        int minLevel = Mathf.Max(1, player.level - 1);
+        int maxLevel = player.level + 2; // Random.Range'de üst limit hariçtir
+        int randomLevel = Random.Range(minLevel, maxLevel);
+
+        level = randomLevel;
+
+        // Level'e göre sağlık ve XP ölçeklemesi
+        enemyhealth += (level - 1) * 20;
+        baseXP += (level - 1) * 10;
+
+        Debug.Log($"{gameObject.name} spawned with level {level} and {enemyhealth} HP");
+    }
 
     public void TakeDamage(int damage)
     {
-        health -= damage;
-        Debug.Log(gameObject.name + " took " + damage + " damage! Remaining health: " + health);
+        enemyhealth -= damage;
+        Debug.Log(gameObject.name + " took " + damage + " damage! Remaining health: " + enemyhealth);
 
-        if (health <= 0)
+        if (enemyhealth <= 0)
         {
             Die();
         }
@@ -17,7 +38,14 @@ public class EnemyStats : MonoBehaviour
 
     void Die()
     {
-        Debug.Log(gameObject.name + " died!");
+        int xpToGive = baseXP + (level * 10);
+        Debug.Log(gameObject.name + " died! Giving XP: " + xpToGive);
+
+        if (player != null)
+        {
+            player.GainXP(xpToGive);
+        }
+
         Destroy(gameObject);
     }
 }
