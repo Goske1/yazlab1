@@ -4,6 +4,8 @@ public class playerstats : MonoBehaviour
 {
     [Header("Level Up FX")]
     public AudioSource levelUpSound;
+    public LevelUpUI levelUpUI;
+
 
     [Header("Player Health stats")]
     [SerializeField] public int health = 100;
@@ -15,7 +17,7 @@ public class playerstats : MonoBehaviour
     public int level = 1;
     public int currentXP = 0;
     public int xpToNextLevel = 100;
-    public XPBar xpBar; // yeni ekleyeceğimiz bar
+    public XpBar xpBar; // yeni ekleyeceğimiz bar
 
     void Start()
     {
@@ -59,6 +61,8 @@ public class playerstats : MonoBehaviour
 
         if (xpBar != null)
             xpBar.SetXP(currentXP);
+        else
+        Debug.LogWarning("⚠️ xpBar referansı BOŞ!");
 
         // Seviye atlama kontrolü
         if (currentXP >= xpToNextLevel)
@@ -83,6 +87,9 @@ public class playerstats : MonoBehaviour
         }
         if (levelUpSound != null)
         levelUpSound.Play();
+        
+        if (levelUpUI != null)
+        levelUpUI.ShowLevelUp();
 
         // Görsel efekt veya ses burada çağrılacak (3. adım)
     }
