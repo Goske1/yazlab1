@@ -9,13 +9,28 @@ public class Gun : MonoBehaviour
     public float maxShootDistance = 100f;   // Mermi yönü için raycast menzili
     public LayerMask aimLayerMask;          // Inspector'dan ayarladığımız maske
 
+    [Header("Otomatik Ateş Ayarları")] // <-- YENİ BAŞLIK
+    public float fireRate = 10f; // Saniyede kaç mermi atacağı
+    private float nextFireTime = 0f; // Bir sonraki ateş zamanını tutan değişken
+
     void Update()
     {
-        // Eski Input Manager'da "Fire1" varsayılan olarak Mouse0 ve Left Ctrl'e bağlıdır.
-        // Dash LeftControl ile tetiklendiğinden, ateşi sadece mouse sol tıklamasına sabitliyoruz.
-        if (Input.GetMouseButtonDown(0))
+        // 'GetMouseButtonDown' (bir kez basma) yerine 'GetMouseButton' (basılı tutma) olarak değiştirildi.
+        // --- DEĞİŞTİ ---
+        if (Input.GetMouseButton(0))
         {
-            Shoot();
+            // Ateş etmek için "fire rate" süresinin geçip geçmediğini kontrol et
+            // Time.time, oyun başladığından beri geçen toplam süredir.
+            // --- YENİ KONTROL EKLENDİ ---
+            if (Time.time >= nextFireTime)
+            {
+                // Bir sonraki ateş zamanını ayarla
+                // Örnek: fireRate 10 ise, 1 / 10 = 0.1 saniye sonra tekrar ateş edebilir.
+                nextFireTime = Time.time + 1f / fireRate;
+
+                // Ateş et
+                Shoot();
+            }
         }
     }
 
@@ -44,10 +59,8 @@ public class Gun : MonoBehaviour
         Rigidbody rb = projectile.GetComponent<Rigidbody>();
 
         // Mermiye kuvvet uygula
-        // --- YAZIM HATASI (Impilse) DÜZELTİLDİ ---
         rb.AddForce(direction * shootForce, ForceMode.Impulse); 
 
-        // --- YAZIM HATASI (...) DÜZELTİLDİ ---
         Debug.Log("Fired toward " + targetPoint);
     }
 }
