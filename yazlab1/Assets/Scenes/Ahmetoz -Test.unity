@@ -4699,7 +4699,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 5168866426301954978, guid: 3065798ed02dd734582b26e49145176c, type: 3}
   firePoint: {fileID: 996260746}
   shootForce: 15
-  aimOffset: 1.2
+  aimOffset: 1
   requireLineOfSight: 0
   shootLayerMask:
     serializedVersion: 2
