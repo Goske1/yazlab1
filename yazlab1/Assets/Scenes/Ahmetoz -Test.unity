@@ -1797,6 +1797,7 @@ MonoBehaviour:
   aimLayerMask:
     serializedVersion: 2
     m_Bits: 247
+  fireRate: 10
 --- !u!95 &1804723384
 Animator:
   serializedVersion: 7
@@ -2864,8 +2865,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
   enemyPrefab: {fileID: 4664466002300420984}
-  totalWaves: 15
-  enemiesPerWave: 9
+  totalWaves: 1
+  enemiesPerWave: 3
   spawnInterval: 5
   size: {x: 20, y: 0, z: 20}
   minDistanceFromPlayer: 5
@@ -2980,7 +2981,7 @@ Transform:
   m_GameObject: {fileID: 6268719903298448047}
   serializedVersion: 2
   m_LocalRotation: {x: 0.22697943, y: -0, z: -0, w: 0.9738996}
-  m_LocalPosition: {x: 0, y: 5.5, z: -12}
+  m_LocalPosition: {x: 1, y: 8, z: -12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4188,7 +4189,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1588039779363709499}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4196,7 +4197,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 15}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &7739712531475757130
@@ -4296,9 +4297,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TPS_CameraController
   target: {fileID: 1804723382}
-  sensitivity: 3
+  mainCamera: {fileID: 314713180247542283}
+  normalSensitivity: 3
+  aimSensitivity: 1.5
   minYAngle: -35
   maxYAngle: 50
+  normalFOV: 60
+  zoomedFOV: 30
+  zoomSpeed: 10
+  characterRotationSpeed: 10
 --- !u!1 &8018557154442539899
 GameObject:
   m_ObjectHideFlags: 0
@@ -4704,6 +4711,8 @@ MonoBehaviour:
   shootLayerMask:
     serializedVersion: 2
     m_Bits: 0
+  inChase: 0
+  isShooting: 0
 --- !u!4 &9035573212224578051
 Transform:
   m_ObjectHideFlags: 0

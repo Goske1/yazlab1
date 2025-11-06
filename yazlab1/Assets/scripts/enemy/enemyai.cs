@@ -53,6 +53,11 @@ public class EnemyAI : MonoBehaviour
     private enum State { Patrol, LostPatrol, Chase, Attack }
     private State currentState;
 
+    // Public runtime flags (per-enemy)
+    [Header("Runtime State Flags")]
+    public bool inChase = false;    // true: şu anda kovalamada
+    public bool isShooting = false; // true: şu anda ateş ediyor
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -79,9 +84,18 @@ public class EnemyAI : MonoBehaviour
         if (player == null) return;
 
         cooldownTimer -= Time.deltaTime;
-        Debug.Log("Düşman Adı: " + name + " | Durum: " + currentState + " | Mesafe: " + Vector3.Distance(transform.position, player.position) + " | Cooldown: " + cooldownTimer + " | Görebiliyor mu: " + CanSeePlayer());
+        Debug.Log("Düşman Adı: " + name
+            + " | Durum: " + currentState
+            + " | Mesafe: " + Vector3.Distance(transform.position, player.position)
+            + " | Cooldown: " + cooldownTimer
+            + " | Görebiliyor mu: " + CanSeePlayer()
+            + " | inChase: " + inChase
+            + " | isShooting: " + isShooting);
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
         bool canSeePlayer = CanSeePlayer();
+        // isShooting, ateş menzili içinde olduğumuz SÜRECE true olmalı (anlık atışa bağlı değil)
+        bool inShootZone = distanceToPlayer <= shootRange && (!requireLineOfSight || canSeePlayer);
+        isShooting = inShootZone;
 
         if (canSeePlayer)
         {
@@ -201,6 +215,7 @@ public class EnemyAI : MonoBehaviour
 
     void Patrol()
     {
+        inChase = false;
         if (isIdle)
         {
             idleTimer += Time.deltaTime;
@@ -260,6 +275,7 @@ public class EnemyAI : MonoBehaviour
 
     void LostPatrol()
     {
+        inChase = false;
         float distanceToLastSeen = Vector3.Distance(transform.position, lastSeenPlayerPosition);
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
@@ -415,6 +431,7 @@ public class EnemyAI : MonoBehaviour
     {
         isIdle = false;
         isPatrolling = false;
+        inChase = true;
 
         if (agent.isOnNavMesh && player != null)
         {
@@ -445,6 +462,8 @@ public class EnemyAI : MonoBehaviour
         isAttacking = true;
         cooldownTimer = shootCooldown; 
         attackTimer = shootDuration;   
+        isShooting = true;
+        inChase = false;
 
         if (agent.isOnNavMesh) agent.ResetPath(); // Hareketi durdur
 
@@ -473,6 +492,7 @@ public class EnemyAI : MonoBehaviour
         isAttacking = false;
         attackTimer = 0f;
         agent.isStopped = false; // Harekete devam et
+        isShooting = false;
     }
 
     public void CancelAttack()
@@ -483,6 +503,7 @@ public class EnemyAI : MonoBehaviour
         attackTimer = 0f;
         cooldownTimer = shootCooldown; // İptal ederse de cooldown'a girsin
         agent.isStopped = false;
+        isShooting = false;
 
         animator.ResetTrigger("Attack"); 
         animator.ResetTrigger("Shoot"); // Shoot animasyonunuz varsa
