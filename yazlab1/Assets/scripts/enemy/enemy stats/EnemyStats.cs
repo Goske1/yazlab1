@@ -2,7 +2,10 @@ using UnityEngine;
 
 public class EnemyStats : MonoBehaviour
 {
-    public int enemyhealth = 100;
+    // "enemyhealth" yerine bu ikisini kullanmak daha nettir:
+    public int currentHealth; // Mevcut canı
+    public int maxHealth;     // Maksimum alabileceği can
+
     public int level = 1;
     public int baseXP = 50;
     private playerstats player;
@@ -11,26 +14,26 @@ public class EnemyStats : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<playerstats>();
 
-        // --- Güvenli seviye aralığı: player level ±1 ---
         int minLevel = Mathf.Max(1, player.level - 1);
-        int maxLevel = player.level + 2; // Random.Range'de üst limit hariçtir
-        int randomLevel = Random.Range(minLevel, maxLevel);
+        int maxLevel = player.level + 2; 
+        level = Random.Range(minLevel, maxLevel);
 
-        level = randomLevel;
+        // Canı ayarla
+        maxHealth = 100 + (level - 1) * 20; // Formülünüz
+        currentHealth = maxHealth; // Başlangıçta canı fulle
 
-        // Level'e göre sağlık ve XP ölçeklemesi
-        enemyhealth += (level - 1) * 20;
         baseXP += (level - 1) * 10;
-
-        Debug.Log($"{gameObject.name} spawned with level {level} and {enemyhealth} HP");
+        
+        // Debug.Log'u güncelledik
+        Debug.Log($"{gameObject.name} spawned with level {level} and {maxHealth} HP");
     }
 
     public void TakeDamage(int damage)
     {
-        enemyhealth -= damage;
-        Debug.Log(gameObject.name + " took " + damage + " damage! Remaining health: " + enemyhealth);
+        currentHealth -= damage;
+        Debug.Log(gameObject.name + " took " + damage + " damage! Remaining: " + currentHealth);
 
-        if (enemyhealth <= 0)
+        if (currentHealth <= 0)
         {
             Die();
         }
@@ -38,14 +41,8 @@ public class EnemyStats : MonoBehaviour
 
     void Die()
     {
-        int xpToGive = baseXP + (level * 10);
-        Debug.Log(gameObject.name + " died! Giving XP: " + xpToGive);
-
-        if (player != null)
-        {
-            player.GainXP(xpToGive);
-        }
-
-        Destroy(gameObject);
+       
+        player.GainXP(baseXP + (level * 10));
+        Destroy(gameObject); 
     }
 }
