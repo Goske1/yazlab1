@@ -36,7 +36,7 @@ public class TPS_CameraController : MonoBehaviour
         {
             // 1. Bu nesnenin (tps_camera) pozisyonunu, karakterin pozisyonuna eşitle
             // (Karakterin ayakları yerine biraz üstünü, örn. göğsünü hedef alabiliriz)
-            transform.position = target.position + Vector3.up * 1.5f; 
+            transform.position = target.position + Vector3.up * 1.10f; 
 
             // 2. Bu nesnenin (tps_camera) rotasyonunu, fare girdisine göre ayarla
             Quaternion rotation = Quaternion.Euler(currentY, currentX, 0);
