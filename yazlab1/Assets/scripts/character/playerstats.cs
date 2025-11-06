@@ -5,6 +5,8 @@ public class playerstats : MonoBehaviour
     [Header("Level Up FX")]
     public AudioSource levelUpSound;
     public LevelUpUI levelUpUI;
+    public GameObject levelUpVFX; // Buraya level atlama efektinizi (prefab) sürükleyeceksiniz
+    private Animator anim;
 
 
     [Header("Player Health stats")]
@@ -23,6 +25,7 @@ public class playerstats : MonoBehaviour
     {
         currentHealth = health;
         healthBar.SetMaxHealth(health);
+        anim = GetComponentInChildren<Animator>();
 
         // XP bar başlangıcı
         if (xpBar != null)

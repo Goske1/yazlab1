@@ -359,6 +359,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::XPBar
   slider: {fileID: 195687238}
   fillImage: {fileID: 368679650}
+  levelText: {fileID: 0}
 --- !u!114 &195687238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1827,7 +1828,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 834eaf12fc7c0a74b90b6430aa08c285, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 96eba9bbd2ff70a48ba3ac81ec9a48f0, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1 &273804139128743607
 GameObject:
@@ -3830,7 +3831,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c657759104d91f4e85ff442e7f426a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
-  enemyhealth: 100
+  currentHealth: 0
+  maxHealth: 100
   level: 1
   baseXP: 50
 --- !u!65 &6996927315504672796
