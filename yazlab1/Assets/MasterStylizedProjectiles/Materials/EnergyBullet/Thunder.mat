@@ -11,9 +11,14 @@ Material:
   m_Shader: {fileID: 4800000, guid: dd5eb991161d50b4d9452916f712ba14, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _EMISSION
   m_InvalidKeywords: []
+<<<<<<< Updated upstream:yazlab1/Assets/MasterStylizedProjectiles/Materials/EnergyBullet/Thunder.mat
   m_LightmapFlags: 0
+=======
+  m_LightmapFlags: 1
+>>>>>>> Stashed changes:yazlab1/Assets/UnityTechnologies/Adam Character Pack/Adam/Materials/08 - Default 1.mat
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1

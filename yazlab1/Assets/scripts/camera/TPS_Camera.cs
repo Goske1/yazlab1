@@ -77,6 +77,7 @@ public class TPS_CameraController : MonoBehaviour
         {
             // Sağ tıka basılı tutuluyorsa: Yumuşakça ZoomedFOV'a geç
             mainCamera.fieldOfView = Mathf.Lerp(mainCamera.fieldOfView, zoomedFOV, Time.deltaTime * zoomSpeed);
+<<<<<<< Updated upstream
         }
         else
         {
@@ -93,6 +94,24 @@ public class TPS_CameraController : MonoBehaviour
 
             // Karakterin rotasyonunu yumuşak bir geçişle (Slerp) kameranın Y rotasyonuna eşitle
             target.rotation = Quaternion.Slerp(target.rotation, targetRotation, Time.deltaTime * characterRotationSpeed);
+=======
+>>>>>>> Stashed changes
         }
-    }
+        else
+        {
+            // Basılı tutulmuyorsa: Yumuşakça NormalFOV'a geri dön
+            mainCamera.fieldOfView = Mathf.Lerp(mainCamera.fieldOfView, normalFOV, Time.deltaTime * zoomSpeed);
+        }
+
+        // --- 3. Karakter Rotasyonu (YENİ EKLENDİ) ---
+        // Eğer nişan alıyorsak, karakterimiz de kameranın baktığı yöne (sadece Y ekseninde) dönsün
+        if (isAiming)
+        {
+            // Kameranın Y açısını al
+            Quaternion targetRotation = Quaternion.Euler(0, currentX, 0);
+
+            // Karakterin rotasyonunu yumuşak bir geçişle (Slerp) kameranın Y rotasyonuna eşitle
+            target.rotation = Quaternion.Slerp(target.rotation, targetRotation, Time.deltaTime * characterRotationSpeed);
+        }
+    }
 }

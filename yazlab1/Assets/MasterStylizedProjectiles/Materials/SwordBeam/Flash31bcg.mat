@@ -11,10 +11,17 @@ Material:
   m_Shader: {fileID: 4800000, guid: dd5eb991161d50b4d9452916f712ba14, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
+<<<<<<< Updated upstream:yazlab1/Assets/MasterStylizedProjectiles/Materials/SwordBeam/Flash31bcg.mat
   m_ValidKeywords: []
   m_InvalidKeywords:
   - _USEDEPTH_ON
   m_LightmapFlags: 4
+=======
+  m_ValidKeywords:
+  - _EMISSION
+  m_InvalidKeywords: []
+  m_LightmapFlags: 1
+>>>>>>> Stashed changes:yazlab1/Assets/UnityTechnologies/Adam Character Pack/Lu/Materials/body.mat
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1

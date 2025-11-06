@@ -22,4 +22,8 @@ public class LevelUpUI : MonoBehaviour
         yield return new WaitForSeconds(1.2f);
         levelUpText.alpha = 0;
     }
+<<<<<<< Updated upstream
 }
+=======
+}
+>>>>>>> Stashed changes

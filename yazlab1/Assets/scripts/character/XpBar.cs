@@ -48,4 +48,8 @@ public class XpBar : MonoBehaviour
         if (fillImage != null && slider != null)
             fillImage.fillAmount = slider.normalizedValue;
     }
+<<<<<<< Updated upstream
 }
+=======
+}
+>>>>>>> Stashed changes

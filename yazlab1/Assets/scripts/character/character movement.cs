@@ -24,6 +24,24 @@ public class SimpleTransformMovement : MonoBehaviour
     private float lastDashTime = -Mathf.Infinity;
     private bool isDashing = false;
     private Vector3 dashDirection; // Dash yönü için
+<<<<<<< Updated upstream
+=======
+    private float originalHeight;
+    private Vector3 originalCenter;
+
+    [Tooltip("Roll sırasında collider'ın yüksekliği")]
+    public float rollHeight = 0.9f;
+    
+    [Tooltip("Roll sırasında collider'ın Y eksenindeki merkezi")]
+    public float rollCenterY = 0.45f;
+    
+    [Tooltip("Roll'un toplam süresi (saniye)")]
+    public float rollDuration = 0.6f;
+
+    [Tooltip("Yere çökme ve kalkma geçişinin hızı")]
+    public float transitionSpeed = 15f;
+
+>>>>>>> Stashed changes
 
     [Header("Physics Settings")]
     [SerializeField] public float gravityMultiplier = 2.5f; // Hem çıkışta hem inişte uygulanacak ek gravity çarpanı
@@ -64,6 +82,7 @@ public class SimpleTransformMovement : MonoBehaviour
         HandleRotation();
         HandleJumpInput();
         HandleDashInput(); // Dash inputu ekledik
+<<<<<<< Updated upstream
         if (Input.GetButtonDown("Jump"))
         {
             animator.SetTrigger("Jump");
@@ -77,6 +96,15 @@ public class SimpleTransformMovement : MonoBehaviour
         animator.SetBool("isFalling", false);
     }
 
+=======
+        isGrounded = IsGrounded();
+        CharacterMovement.SetBool("IsGrounded", isGrounded);
+        // --- YENİ ANİMATÖR GÜNCELLEME KODU ---
+        // Ham girdileri al (W,A,S,D)
+        float vInput = Input.GetAxisRaw("Vertical");
+        float hInput = Input.GetAxisRaw("Horizontal");
+        bool isSprinting = Input.GetKey(KeyCode.LeftShift);
+>>>>>>> Stashed changes
 
     
     }

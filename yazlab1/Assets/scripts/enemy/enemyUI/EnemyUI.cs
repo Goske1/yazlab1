@@ -6,7 +6,11 @@ public class EnemyUI : MonoBehaviour
 {
     // Bu referansı artık Spawner vermeyecek, kendi bulacak
     private EnemyStats enemyStats; 
+<<<<<<< Updated upstream
     
+=======
+
+>>>>>>> Stashed changes
     public Image healthFill;
     public TextMeshProUGUI levelText;
     // public Vector3 offset = new Vector3(0, 2.5f, 0); // Buna gerek kalmadı
@@ -15,7 +19,11 @@ public class EnemyUI : MonoBehaviour
     void Start()
     {
         cam = Camera.main;
+<<<<<<< Updated upstream
         
+=======
+
+>>>>>>> Stashed changes
         // Yeni eklenen satır:
         // Anlamı: "Ben (UI), kimin çocuğuyum? (Enemy). Onun üzerindeki EnemyStats script'ini bul."
         enemyStats = GetComponentInParent<EnemyStats>(); 

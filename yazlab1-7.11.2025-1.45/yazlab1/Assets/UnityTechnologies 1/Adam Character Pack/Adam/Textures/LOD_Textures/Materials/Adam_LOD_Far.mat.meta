@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 823f09e6177364c48b8e3a90d9710bd7
+timeCreated: 1477916370
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 74842
+  packageName: 'Adam Character Pack: Adam, Guard, Lu'
+  packageVersion: 2021.3
+  assetPath: Assets/UnityTechnologies/Adam Character Pack/Adam/Textures/LOD_Textures/Materials/Adam_LOD_Far.mat
+  uploadId: 562519

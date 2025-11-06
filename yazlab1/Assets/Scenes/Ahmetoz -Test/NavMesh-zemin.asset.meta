@@ -1,5 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< Updated upstream
 guid: da28b2e5ba28bf740acef84b888dd45b
+=======
+<<<<<<<< Updated upstream:yazlab1/Assets/Scenes/Ahmetoz -Test/NavMesh-NavMesh Surface 1.asset.meta
+guid: 6fe96b7947299ec4ab609c4160832f1d
+========
+guid: 115d4cb1a81c44c41aeb24ae5a2d31e4
+>>>>>>>> Stashed changes:yazlab1/Assets/Scenes/Ahmetoz -Test/NavMesh-zemin.asset.meta
+>>>>>>> Stashed changes
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 23800000

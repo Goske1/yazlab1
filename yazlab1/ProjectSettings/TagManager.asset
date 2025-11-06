@@ -17,7 +17,11 @@ TagManager:
   - Ground
   - Enemy
   - Projectile
+<<<<<<< Updated upstream
   - enemyprojectile
+=======
+  - EnemyProjectile
+>>>>>>> Stashed changes
   - 
   - 
   - 

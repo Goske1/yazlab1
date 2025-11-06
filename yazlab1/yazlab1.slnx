@@ -1,6 +1,10 @@
 ﻿<Solution>
   <Project Path="sc.terrain.painter.editor.csproj" />
-  <Project Path="Assembly-CSharp-Editor.csproj" />
   <Project Path="Assembly-CSharp.csproj" />
+  <Project Path="Assembly-CSharp-Editor.csproj" />
+<<<<<<< Updated upstream
+  <Project Path="Assembly-CSharp.csproj" />
+=======
+>>>>>>> Stashed changes
   <Project Path="sc.terrain.painter.runtime.csproj" />
 </Solution>

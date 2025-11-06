@@ -92,4 +92,8 @@ public class HealthBar : MonoBehaviour
         Debug.Log("💀 Oyuncu öldü!");
         // Buraya ölüm animasyonu, respawn veya game over ekranı koyabilirsin
     }
+<<<<<<< Updated upstream
 }
+=======
+}
+>>>>>>> Stashed changes

@@ -5,7 +5,6 @@ public class EnemyAI : MonoBehaviour
 {
     [Header("References")]
     public Transform player;
-    public Animator animator;
     public playerstats playerHealth;
 
     [Header("Settings")]
@@ -35,6 +34,14 @@ public class EnemyAI : MonoBehaviour
     public bool requireLineOfSight = false; // Ateş etmek için görüş zorunlu mu?
     public LayerMask shootLayerMask;    // <-- YENİ: Ateş ederken neleri vurabilsin
     // ----------------------------------------
+<<<<<<< Updated upstream
+=======
+    [Header("Animation Settings")]
+    Animator NPCMovement;
+    public bool inChase = false;
+    public bool isShooting = false;
+
+>>>>>>> Stashed changes
 
     private NavMeshAgent agent;
     private Gun cachedGun; // Düşmanın kendi silah script'i varsa kullanmak için
@@ -53,8 +60,10 @@ public class EnemyAI : MonoBehaviour
     private enum State { Patrol, LostPatrol, Chase, Attack }
     private State currentState;
 
+
     void Start()
     {
+        NPCMovement = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         if (agent == null)
         {
@@ -63,7 +72,10 @@ public class EnemyAI : MonoBehaviour
             return;
         }
 
+<<<<<<< Updated upstream
         if (animator == null) animator = GetComponent<Animator>();
+=======
+>>>>>>> Stashed changes
         cachedGun = GetComponentInChildren<Gun>(true);
         if (playerHealth == null && player != null) playerHealth = player.GetComponent<playerstats>();
 
@@ -76,6 +88,11 @@ public class EnemyAI : MonoBehaviour
 
     void Update()
     {
+
+        NPCMovement.SetBool("InChase",inChase);
+        NPCMovement.SetBool("InFire",isShooting);
+
+
         if (player == null) return;
 
         cooldownTimer -= Time.deltaTime;
@@ -162,7 +179,10 @@ public class EnemyAI : MonoBehaviour
         // TryShootWhileMoving(distanceToPlayer, canSeePlayer); // <-- BU SATIR SİLİNDİ
         // ---------------------------------
 
+<<<<<<< Updated upstream
         animator.SetBool("isWalking", agent.velocity.magnitude > 0.1f && !isAttacking);
+=======
+>>>>>>> Stashed changes
 
         if (!isAttacking)
             RotateTowardsMovementDirection();
@@ -201,6 +221,7 @@ public class EnemyAI : MonoBehaviour
 
     void Patrol()
     {
+        inChase = false;
         if (isIdle)
         {
             idleTimer += Time.deltaTime;
@@ -260,6 +281,10 @@ public class EnemyAI : MonoBehaviour
 
     void LostPatrol()
     {
+<<<<<<< Updated upstream
+=======
+        inChase = false;
+>>>>>>> Stashed changes
         float distanceToLastSeen = Vector3.Distance(transform.position, lastSeenPlayerPosition);
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
@@ -349,7 +374,11 @@ public class EnemyAI : MonoBehaviour
     }
 
     void SetNewPatrolPoint(Vector3 center, float radius)
+<<<<<<< Updated upstream
     {
+=======
+    {                                                                                                           
+>>>>>>> Stashed changes
         const float MIN_DISTANCE = 3f; 
         
         for (int attempt = 0; attempt < 10; attempt++)
@@ -413,6 +442,7 @@ public class EnemyAI : MonoBehaviour
 
     void ChasePlayer()
     {
+        inChase = true;
         isIdle = false;
         isPatrolling = false;
 
@@ -444,7 +474,13 @@ public class EnemyAI : MonoBehaviour
 
         isAttacking = true;
         cooldownTimer = shootCooldown; 
+<<<<<<< Updated upstream
         attackTimer = shootDuration;   
+=======
+        attackTimer = shootDuration;
+        inChase = false;
+        isShooting = true;   
+>>>>>>> Stashed changes
 
         if (agent.isOnNavMesh) agent.ResetPath(); // Hareketi durdur
 
@@ -455,7 +491,10 @@ public class EnemyAI : MonoBehaviour
         ShootAtPlayer();
         
         // (İsteğe bağlı: Eğer "Shoot" adında bir animasyonunuz varsa burada tetikleyebilirsiniz)
+<<<<<<< Updated upstream
         animator.SetTrigger("Shoot"); 
+=======
+>>>>>>> Stashed changes
 
         agent.isStopped = true; // Hareket etmediğinden emin ol
     }
@@ -470,6 +509,7 @@ public class EnemyAI : MonoBehaviour
 
     public void EndAttack()
     {
+        isShooting = false;
         isAttacking = false;
         attackTimer = 0f;
         agent.isStopped = false; // Harekete devam et
@@ -478,11 +518,11 @@ public class EnemyAI : MonoBehaviour
     public void CancelAttack()
     {
         if (!isAttacking) return;
-
         isAttacking = false;
         attackTimer = 0f;
         cooldownTimer = shootCooldown; // İptal ederse de cooldown'a girsin
         agent.isStopped = false;
+<<<<<<< Updated upstream
 
         animator.ResetTrigger("Attack"); 
         animator.ResetTrigger("Shoot"); // Shoot animasyonunuz varsa
@@ -494,6 +534,9 @@ public class EnemyAI : MonoBehaviour
 
         if (agent.isOnNavMesh && player != null)
             agent.SetDestination(player.position);
+=======
+        isShooting = false;
+>>>>>>> Stashed changes
     }
 
     void RotateTowardsMovementDirection()
@@ -514,7 +557,11 @@ public class EnemyAI : MonoBehaviour
 
     // --- ATEŞ ETME FONKSİYONU (GÜNCELLENDİ) ---
     void ShootAtPlayer()
+<<<<<<< Updated upstream
     {
+=======
+    {                                                                                                   // ATTACK BEGİN//
+>>>>>>> Stashed changes
         if (player == null)
         {
             return;

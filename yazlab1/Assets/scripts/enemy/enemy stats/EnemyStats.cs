@@ -23,7 +23,11 @@ public class EnemyStats : MonoBehaviour
         currentHealth = maxHealth; // Başlangıçta canı fulle
 
         baseXP += (level - 1) * 10;
+<<<<<<< Updated upstream
         
+=======
+
+>>>>>>> Stashed changes
         // Debug.Log'u güncelledik
         Debug.Log($"{gameObject.name} spawned with level {level} and {maxHealth} HP");
     }
@@ -41,7 +45,11 @@ public class EnemyStats : MonoBehaviour
 
     void Die()
     {
+<<<<<<< Updated upstream
        
+=======
+
+>>>>>>> Stashed changes
         player.GainXP(baseXP + (level * 10));
         Destroy(gameObject); 
     }

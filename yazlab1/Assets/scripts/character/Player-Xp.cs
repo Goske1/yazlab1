@@ -43,4 +43,8 @@ public class PlayerXP : MonoBehaviour
 
         Debug.Log($"🎉 Level {level}! Yeni max health: {newMaxHealth}");
     }
+<<<<<<< Updated upstream
 }
+=======
+}
+>>>>>>> Stashed changes
