@@ -4,16 +4,16 @@ using UnityEngine.UI;
 public class XpBar : MonoBehaviour
 {
     [Header("Inspector: bağlayın")]
-    public Slider slider;             // Slider bileşeni (XPBar GameObject'in Slider component'i)
-    public Image fillImage;           // Fill Area -> Fill objesinin Image component'i (opsiyonel)
+    public Slider slider;        
+    public Image fillImage;         
 
     void Awake()
     {
-        // Eğer inspector'da atanmamışsa, kendi üzerinde ara
+        
         if (slider == null)
             slider = GetComponent<Slider>();
 
-        // Fill image otomatik bulunur (isteğe bağlı)
+       
         if (fillImage == null && transform.childCount > 0)
         {
             Transform fillArea = transform.Find("Fill Area/Fill");
@@ -22,7 +22,7 @@ public class XpBar : MonoBehaviour
         }
     }
 
-    // playerstats.Start() çağırdığı için SetMaxXP isimleri korunmuştur
+  
     public void SetMaxXP(int maxXp)
     {
         if (slider == null)
@@ -45,7 +45,7 @@ public class XpBar : MonoBehaviour
             return;
         }
 
-        // Güvence: değeri sınırlandır
+   
         slider.value = Mathf.Clamp(xp, (float)slider.minValue, (float)slider.maxValue);
         UpdateFillVisual();
         Debug.Log($"XpBar updated: {slider.value}/{slider.maxValue}");
@@ -55,7 +55,6 @@ public class XpBar : MonoBehaviour
     {
         if (fillImage != null && slider != null)
         {
-            // normalizedValue = 0..1 arası oran
             fillImage.fillAmount = slider.normalizedValue;
         }
     }

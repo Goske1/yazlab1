@@ -5,7 +5,7 @@ public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemyPrefab;
     public int totalWaves = 5;
-    public int enemiesPerWave = 4;          // Her dalgada sabit kalan sayı
+    public int enemiesPerWave = 4;        
     public float spawnInterval = 10f;
     public Vector3 size = new Vector3(20, 0, 20);
     public float minDistanceFromPlayer = 5f;
@@ -52,7 +52,7 @@ public class EnemySpawner : MonoBehaviour
                      Vector3.Distance(spawnPos, transform.position) > maxDistanceFromSpawner);
 
             GameObject e = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
-            // dusman cani burada ayarlanabilir
+
         }
     }
 

@@ -33,7 +33,7 @@ public class SimpleTransformMovement : MonoBehaviour
     private float dashTimeLeft;
     private float lastDashTime = -Mathf.Infinity;
     private bool isDashing = false;
-    private Vector3 dashDirection; // Dash yönü için
+    private Vector3 dashDirection; 
     private float originalHeight;
     private Vector3 originalCenter;
 
@@ -51,7 +51,7 @@ public class SimpleTransformMovement : MonoBehaviour
 
 
     [Header("Physics Settings")]
-    [SerializeField] public float gravityMultiplier = 2.5f; // Hem çıkışta hem inişte uygulanacak ek gravity çarpanı
+    [SerializeField] public float gravityMultiplier = 2.5f; 
 
     [Header("References")]
     [SerializeField] public Transform cameraTransform;
@@ -68,7 +68,6 @@ public class SimpleTransformMovement : MonoBehaviour
             return;
         }
 
-        // Orijinal boyutları "CapsuleCollider"dan al
         originalHeight = capsuleCollider.height;
         originalCenter = capsuleCollider.center;
   
@@ -98,16 +97,14 @@ public class SimpleTransformMovement : MonoBehaviour
         HandleMovementInput();
         HandleRotation();
         HandleJumpInput();
-        HandleDashInput(); // Dash inputu ekledik
+        HandleDashInput(); 
         isGrounded = IsGrounded();
         CharacterMovement.SetBool("IsGrounded", isGrounded);
-        // --- YENİ ANİMATÖR GÜNCELLEME KODU ---
-        // Ham girdileri al (W,A,S,D)
+
         float vInput = Input.GetAxisRaw("Vertical");
         float hInput = Input.GetAxisRaw("Horizontal");
         bool isSprinting = Input.GetKey(KeyCode.LeftShift);
 
-        // Değerleri Animator'e gönder
         CharacterMovement.SetFloat("Vertical", vInput);
         CharacterMovement.SetFloat("Horizontal", hInput);
         CharacterMovement.SetBool("IsSprint", isSprinting);
@@ -131,7 +128,7 @@ public class SimpleTransformMovement : MonoBehaviour
         camRight.Normalize();
 
         moveDirection = Vector3.zero;
-        rawInputDirection = Vector3.zero; // <<< YENİ SATIR (Sıfırlama)
+        rawInputDirection = Vector3.zero; 
 
         if (Input.GetKey(KeyCode.W)) moveDirection += camForward;
         if (Input.GetKey(KeyCode.S)) moveDirection -= camForward;
@@ -140,10 +137,10 @@ public class SimpleTransformMovement : MonoBehaviour
 
         moveDirection.Normalize();
 
-        // HAM YÖNÜ BURADA KAYDET (Sprint'ten önce)
-        rawInputDirection = moveDirection; // <<< YENİ SATIR
 
-        // Şimdi sprint'i uygula
+        rawInputDirection = moveDirection; 
+
+
         if (Input.GetKey(KeyCode.LeftShift))
         {
             moveDirection *= sprintMultiplier;
@@ -151,27 +148,26 @@ public class SimpleTransformMovement : MonoBehaviour
     }
     public void HandleRotation()
     {
-        // Dash sırasında dönmeyi engelle
+
         if (isDashing) return;
 
-        // Kamera referansı yoksa dönmeyi deneme
+
         if (cameraTransform == null) return;
 
-        // 1. Kameranın baktığı yönü al (kameranın transformu)
+
         Vector3 camForward = cameraTransform.forward;
 
-        // 2. Y eksenini sıfırla (karakterin yukarı/aşağı bakmasını engelle)
+ 
         camForward.y = 0;
         camForward.Normalize();
 
-        // 3. Yön geçerliyse
+
         if (camForward != Vector3.zero)
         {
-            // 4. Hedef rotasyonu hesapla
+
             Quaternion targetRotation = Quaternion.LookRotation(camForward);
 
-            // 5. Karakteri o yöne doğru yumuşakça (Slerp) döndür
-            // (rotationSpeed değişkenini senin script'inden aldım)
+
             transform.rotation = Quaternion.Slerp(
                 transform.rotation,
                 targetRotation,
@@ -244,14 +240,14 @@ public class SimpleTransformMovement : MonoBehaviour
         dashTimeLeft = dashDuration;
         lastDashTime = Time.time;
 
-        // --- YENİ EKLENEN BÖLÜM (Alçalma) ---
+
         if (capsuleCollider != null)
         {
             capsuleCollider.height = rollHeight;
-            // Orijinal center'ın X ve Z'sini koru, sadece Y'sini değiştir.
+
             capsuleCollider.center = new Vector3(originalCenter.x, rollCenterY, originalCenter.z);
         }
-        // --- YENİ BÖLÜM SONU ---
+
 
         dashDirection = rawInputDirection;
         if (dashDirection == Vector3.zero)
@@ -267,8 +263,7 @@ public class SimpleTransformMovement : MonoBehaviour
     {
         isDashing = false;
 
-        // --- YENİ EKLENEN BÖLÜM (Normale Dönme) ---
-        // Bu kısım doğru, collider'ı normale döndürüyoruz.
+
         if (capsuleCollider != null)
         {
             capsuleCollider.height = originalHeight;

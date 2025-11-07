@@ -16,7 +16,7 @@ public class Projectile : MonoBehaviour
                   " | Tag: " + collision.gameObject.tag +
                   " | IsTrigger: " + collision.collider.isTrigger);
 
-        // Oyuncuya hasar
+        
         if (collision.gameObject.CompareTag("Player"))
         {
             playerstats player = collision.gameObject.GetComponent<playerstats>();
@@ -27,7 +27,7 @@ public class Projectile : MonoBehaviour
             }
         }
 
-        // Düşmana hasar
+        
         else if (collision.gameObject.CompareTag("Enemy"))
         {
             EnemyStats enemy = collision.gameObject.GetComponentInParent<EnemyStats>();
@@ -38,7 +38,7 @@ public class Projectile : MonoBehaviour
             }
         }
 
-        // Duvarda vs çarptığında da yok olsun
+        
         Destroy(gameObject);
     }
 }

@@ -11,9 +11,9 @@ public class EnemyStats : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<playerstats>();
 
-        // --- Güvenli seviye aralığı: player level ±1 ---
+        
         int minLevel = Mathf.Max(1, 1 - 1);
-        int maxLevel = 1 + 2; // Random.Range'de üst limit hariçtir
+        int maxLevel = 1 + 2; 
         int randomLevel = Random.Range(minLevel, maxLevel);
 
         level = randomLevel;

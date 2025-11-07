@@ -17,14 +17,14 @@ public class playerstats : MonoBehaviour
     public int level = 1;
     public int currentXP = 0;
     public int xpToNextLevel = 100;
-    public XpBar xpBar; // yeni ekleyeceğimiz bar
+    public XpBar xpBar; 
 
     void Start()
     {
         currentHealth = health;
         healthBar.SetMaxHealth(health);
 
-        // XP bar başlangıcı
+
         if (xpBar != null)
         {
             xpBar.SetMaxXP(xpToNextLevel);
@@ -62,9 +62,9 @@ public class playerstats : MonoBehaviour
         if (xpBar != null)
             xpBar.SetXP(currentXP);
         else
-        Debug.LogWarning("⚠️ xpBar referansı BOŞ!");
+        Debug.LogWarning("xpBar referansı BOŞ!");
 
-        // Seviye atlama kontrolü
+
         if (currentXP >= xpToNextLevel)
         {
             LevelUp();
@@ -75,9 +75,9 @@ public class playerstats : MonoBehaviour
     {
         level++;
         currentXP -= xpToNextLevel;
-        xpToNextLevel = Mathf.RoundToInt(xpToNextLevel * 1.25f); // seviye başına XP eşiği artar
+        xpToNextLevel = Mathf.RoundToInt(xpToNextLevel * 1.25f); 
 
-        Debug.Log($"🎉 Level Up! Player is now level {level}!");
+        Debug.Log($"Level Up! Player is now level {level}!");
 
         // XP barı sıfırla
         if (xpBar != null)
@@ -91,7 +91,7 @@ public class playerstats : MonoBehaviour
         if (levelUpUI != null)
         levelUpUI.ShowLevelUp();
 
-        // Görsel efekt veya ses burada çağrılacak (3. adım)
+
     }
 
     void Die()

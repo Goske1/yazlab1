@@ -1,10 +1,10 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI; // UI bileşenlerini kullanmak için gerekli!
+using UnityEngine.UI; 
 
 public class DamageImage : MonoBehaviour
 {
-    public Image damageImage; // UI Image referansı
+    public Image damageImage; 
 
     public void StartFlash()
     {
@@ -13,7 +13,7 @@ public class DamageImage : MonoBehaviour
 
     IEnumerator DamageFlash()
     {
-        // Ekranı kısa süre kırmızıya boyar
+
         damageImage.color = new Color(1, 0, 0, 0.3f);
         yield return new WaitForSeconds(0.1f);
         damageImage.color = Color.clear;

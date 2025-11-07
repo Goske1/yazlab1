@@ -8,8 +8,8 @@ public class PlayerXP : MonoBehaviour
     public float xpGrowthRate = 1.3f;
 
     public int baseHealth = 100;
-    public float healthGrowth = 1.1f; // her levelde %10 artış
-    public float regenGrowth = 0.5f;  // her levelde saniyede +0.5 can
+    public float healthGrowth = 1.1f; 
+    public float regenGrowth = 0.5f;  
 
     private HealthBar healthBar;
 

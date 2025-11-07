@@ -9,15 +9,15 @@ public class EnemyAI : MonoBehaviour
 
     [Header("Settings")]
     public float detectionRadius = 15f;
-    // public float attackRange = 2f; // <-- ESKİ YAKIN SALDIRI MENZİLİ (KULLANILMIYOR)
-    public float shootRange = 10f;       // <-- YENİ: Ateş etme menzili
+
+    public float shootRange = 10f;      
     public float patrolRadius = 20f;
-    // public float attackCooldown = 2f; // <-- ESKİSİ
-    public float shootCooldown = 2f;     // <-- YENİ: Ateş etme sıklığı
+  
+    public float shootCooldown = 2f;    
     public float patrolIdleTime = 3f;
     public float rotationSpeed = 7f;
-    // public float attackDuration = 1.0f; // <-- ESKİSİ
-    public float shootDuration = 1.0f;  // <-- YENİ: Ateş etme animasyon süresi (veya duraksama süresi)
+    
+    public float shootDuration = 1.0f; 
     
     [Header("Vision Settings")]
     public float viewAngle = 120f; 
@@ -25,18 +25,17 @@ public class EnemyAI : MonoBehaviour
     public float lostPatrolRadius = 8f; 
     public float lostDetectionRadius = 30f; 
 
-    // --- ATEŞ ETME AYARLARI ---
     [Header("Ranged Attack (YENİ)")] 
-    public GameObject projectilePrefab; // Düşmanın mermi prefab'ı
-    public Transform firePoint;         // Merminin çıkacağı nokta
-    public float shootForce = 15f;      // Merminin hızı
-    public float aimOffset = 1.2f;      // Oyuncunun gövdesine nişan almak için (örn: 1.2f)
-    public bool requireLineOfSight = false; // Ateş etmek için görüş zorunlu mu?
-    public LayerMask shootLayerMask;    // <-- YENİ: Ateş ederken neleri vurabilsin
+    public GameObject projectilePrefab; 
+    public Transform firePoint;         
+    public float shootForce = 15f;   
+    public float aimOffset = 1.2f;
+    public bool requireLineOfSight = false; 
+        public LayerMask shootLayerMask;   
     // ----------------------------------------
 
     private NavMeshAgent agent;
-    private Gun cachedGun; // Düşmanın kendi silah script'i varsa kullanmak için
+    private Gun cachedGun; 
     private float cooldownTimer;
     private float idleTimer;
     private float attackTimer;
@@ -87,15 +86,14 @@ public class EnemyAI : MonoBehaviour
             hasSeenPlayer = true;
         }
 
-        // --- DEĞİŞİKLİK: attackRange -> shootRange ---
-        // Saldırı durumundaysa ve oyuncu menzilden çıktıysa, takibe dön
+      
         if (isAttacking && distanceToPlayer > shootRange) 
         {
             CancelAttack();
             currentState = State.Chase;
         }
 
-        // Saldırı animasyonu/süresi devam ediyorsa
+
         if (isAttacking)
         {
             attackTimer -= Time.deltaTime;
@@ -105,31 +103,28 @@ public class EnemyAI : MonoBehaviour
             }
         }
 
-        // --- DÜZELTİLMİŞ STATE MACHINE (DURUM MAKİNESİ) MANTIĞI ---
+      
         if (!isAttacking)
         {
-            // Öncelik 1: Saldırı (Dur ve Ateş Et)
-            // Ateş menzilindeysek, (görüş gerekliyse) görebiliyorsak VE cooldown bittiyse -> Saldır
-            bool canShoot = !requireLineOfSight || canSeePlayer; // Görüş gerekmiyorsa veya görebiliyorsa
+            
+            bool canShoot = !requireLineOfSight || canSeePlayer;
 
             if (distanceToPlayer <= shootRange && canShoot && cooldownTimer <= 0f)
             {
                 currentState = State.Attack; // <-- "DUR VE ATEŞ ET" DURUMU
             }
-            // Öncelik 2: Takip etme (Chase)
-            // Algılama menzilindeysek VE (görebiliyorsak VEYA daha önce gördüysek) -> Takip Et
+            
             else if (distanceToPlayer <= detectionRadius && (canSeePlayer || hasSeenPlayer))
             {
                 currentState = State.Chase;
                 hasSeenPlayer = true; 
             }
-            // Öncelik 3: Oyuncuyu kaybettiyse (LostPatrol)
-            // Daha önce gördüysek (ama artık menzilde değilsek) -> Son görülen yere git
+           
             else if (hasSeenPlayer)
             {
                 currentState = State.LostPatrol;
             }
-            // Öncelik 4: Normal Devriye (Patrol)
+           
             else
             {
                 currentState = State.Patrol;
@@ -138,7 +133,7 @@ public class EnemyAI : MonoBehaviour
         // -----------------------------------------------------------------
 
 
-        // --- DÜZELTİLMİŞ SWITCH BLOĞU ---
+        
         switch (currentState)
         {
             case State.Patrol:
@@ -151,14 +146,12 @@ public class EnemyAI : MonoBehaviour
                 ChasePlayer();
                 break;
             case State.Attack: 
-                Attack(); // <-- HATA DÜZELTİLDİ: Artık Attack() fonksiyonunu çağırıyor
+                Attack(); 
                 break;
         }
         // ---------------------------------
 
-        // --- ÇAKIŞAN FONKSİYON SİLİNDİ ---
-        // TryShootWhileMoving(distanceToPlayer, canSeePlayer); // <-- BU SATIR SİLİNDİ
-        // ---------------------------------
+        
 
         if (!isAttacking)
             RotateTowardsMovementDirection();
@@ -419,7 +412,7 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    // --- BU FONKSİYON ARTIK DOĞRU ZAMANDA ÇAĞRILACAK ---
+   
     void Attack()
     {
         if (isAttacking) return;
@@ -431,7 +424,7 @@ public class EnemyAI : MonoBehaviour
             return;
         }
 
-        // Ek güvenlik: Ateş için görüş gerekiyorsa VE göremiyorsa, takibe dön
+       
         if (requireLineOfSight && !CanSeePlayer())
         {
             currentState = State.Chase;
@@ -442,30 +435,24 @@ public class EnemyAI : MonoBehaviour
         cooldownTimer = shootCooldown; 
         attackTimer = shootDuration;   
 
-        if (agent.isOnNavMesh) agent.ResetPath(); // Hareketi durdur
+        if (agent.isOnNavMesh) agent.ResetPath();
 
-        // Ateş ederken oyuncuya dön
+       
         transform.LookAt(new Vector3(player.position.x, transform.position.y, player.position.z));
 
-        // Ateş et
+      
         ShootAtPlayer();
 
-        agent.isStopped = true; // Hareket etmediğinden emin ol
+        agent.isStopped = true; 
     }
 
-    // --- YAKIN SALDIRI HASARI (MELEE) DEVRE DIŞI ---
-    /*
-    public void DealDamage()
-    {
-        // Bu fonksiyon artık kullanılmıyor, çünkü mermiler hasar verecek
-    }
-    */
+    
 
     public void EndAttack()
     {
         isAttacking = false;
         attackTimer = 0f;
-        agent.isStopped = false; // Harekete devam et
+        agent.isStopped = false; 
     }
 
     public void CancelAttack()
@@ -474,7 +461,7 @@ public class EnemyAI : MonoBehaviour
 
         isAttacking = false;
         attackTimer = 0f;
-        cooldownTimer = shootCooldown; // İptal ederse de cooldown'a girsin
+        cooldownTimer = shootCooldown; 
         agent.isStopped = false;
 
         if (agent.isOnNavMesh && player != null)
@@ -491,13 +478,7 @@ public class EnemyAI : MonoBehaviour
     }
 
 
-    // --- HAREKETLİ ATEŞ ETME FONKSİYONU SİLİNDİ (TryShootWhileMoving) ---
-    // ...
-    // ...
-    // -------------------------------------------------------------------
-
-
-    // --- ATEŞ ETME FONKSİYONU (GÜNCELLENDİ) ---
+    
     void ShootAtPlayer()
     {
         if (player == null)
@@ -505,7 +486,7 @@ public class EnemyAI : MonoBehaviour
             return;
         }
 
-        // 0) Öncelik sırası: EnemyAI alanları -> cachedGun -> child adından FirePoint
+        
         GameObject useProjectile = projectilePrefab;
         Transform useFirePoint = firePoint;
         float useShootForce = shootForce;
@@ -525,7 +506,7 @@ public class EnemyAI : MonoBehaviour
 
         if (useFirePoint == null)
         {
-            // Son çare: kendi transformundan ateş et
+           
             useFirePoint = this.transform;
         }
 
@@ -535,17 +516,16 @@ public class EnemyAI : MonoBehaviour
             return;
         }
 
-        // 1) Oyuncunun göğüs hizasına nişan al
+   
         Vector3 desiredTarget = player.position + Vector3.up * aimOffset;
 
-        // 2) FirePoint'ten oyuncu doğrultusunda ray at (LayerMask kullanarak)
+      
         Vector3 toTarget = (desiredTarget - useFirePoint.position);
         Vector3 rayDir = toTarget.normalized;
         RaycastHit hitInfo;
         Vector3 targetPoint = desiredTarget;
 
-        // --- GÜNCELLEME: LayerMask eklendi ---
-        // Maske atanmadıysa, her şeyi vursun (eski davranış)
+      
         int mask = (shootLayerMask.value == 0) ? ~0 : shootLayerMask.value; 
 
         if (Physics.Raycast(useFirePoint.position, rayDir, out hitInfo, Mathf.Max(2f, toTarget.magnitude), mask))
@@ -553,16 +533,16 @@ public class EnemyAI : MonoBehaviour
             targetPoint = hitInfo.point;
         }
 
-        // 3) Son hedefe doğru yön
+     
         Vector3 direction = (targetPoint - useFirePoint.position).normalized;
 
-        // 4) Mermiyi oluştur ve yönlendir
+ 
         GameObject projectile = Instantiate(useProjectile, useFirePoint.position, Quaternion.LookRotation(direction));
         Rigidbody rb = projectile.GetComponent<Rigidbody>();
 
         if (rb != null)
         {
-            // Mermiye kuvvet uygula
+        
             rb.AddForce(direction * useShootForce, ForceMode.Impulse);
         }
         else

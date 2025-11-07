@@ -23,7 +23,7 @@ public class HealthBar : MonoBehaviour
 
     void Update()
     {
-        // Sürekli can yenileme (regen)
+
         if (!isDead && currentHealth < maxHealth)
         {
             regenTimer += Time.deltaTime;
@@ -40,7 +40,7 @@ public class HealthBar : MonoBehaviour
         fill.color = gradient.Evaluate(slider.normalizedValue);
     }
 
-    // Max health belirleme
+
     public void SetMaxHealth(int health)
     {
         maxHealth = health;
@@ -51,7 +51,7 @@ public class HealthBar : MonoBehaviour
         fill.color = gradient.Evaluate(1f);
     }
 
-    // Hasar alma
+
     public void TakeDamage(int amount)
     {
         if (isDead) return;
@@ -67,7 +67,7 @@ public class HealthBar : MonoBehaviour
         }
     }
 
-    // Can yenileme
+
     public void Heal(int amount)
     {
         if (isDead) return;
@@ -82,14 +82,14 @@ public class HealthBar : MonoBehaviour
     public void OnLevelUp(int newMaxHealth, float regenBonus)
     {
         SetMaxHealth(newMaxHealth);
-        regenPerSecond += regenBonus; // level başına regen artışı
-        Debug.Log($"❤️ Level up! Yeni max health: {newMaxHealth}, regen: {regenPerSecond}/s");
+        regenPerSecond += regenBonus; 
+        Debug.Log($"Level up! Yeni max health: {newMaxHealth}, regen: {regenPerSecond}/s");
     }
 
     void Die()
     {
         isDead = true;
-        Debug.Log("💀 Oyuncu öldü!");
-        // Buraya ölüm animasyonu, respawn veya game over ekranı koyabilirsin
+        Debug.Log("Oyuncu öldü!");
+
     }
 }
