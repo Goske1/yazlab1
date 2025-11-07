@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: dc2ead3817fd3c940b893fa753296070
+timeCreated: 1430315927
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 74842
+  packageName: 'Adam Character Pack: Adam, Guard, Lu'
+  packageVersion: 2021.3
+  assetPath: Assets/UnityTechnologies/Adam Character Pack/Art/Terrain/Materials/Background.mat
+  uploadId: 562519
